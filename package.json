@@ -1,0 +1,22 @@
+{
+  "name": "Lab_NHS",
+  "version": "1.0.0",
+  "description": "REST API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node_modules/.bin/mocha tests/**"
+  },
+  "keywords": [
+    "nhs"
+  ],
+  "author": "Alex Hill",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.3",
+    "jade": "^1.9.2",
+    "mysql": "^2.10.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
+}
