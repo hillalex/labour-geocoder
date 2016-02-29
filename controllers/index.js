@@ -3,5 +3,5 @@ var express = require('express')
 
 router.use('/CCG', require('./CCG'));
 
-
+router.use('/search', require('./search'));
 module.exports = router;

@@ -3,7 +3,7 @@ var express = require('express')
     , db = require('../db')
     , CCG = require('../middlewares/CCG')(db.pool);
 
-console.log(require('../middlewares/CCG')(db.pool));
+
 router.get('/', function (req, res) {
 
     CCG.getAllCCGs(function(e, results){

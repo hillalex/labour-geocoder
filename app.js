@@ -3,7 +3,6 @@ var express = require('express')
     , config = require('./config');
 
 app.use(require('./controllers'));
-
 server = require('http').createServer(app);
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || config.port;
