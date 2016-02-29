@@ -3,5 +3,6 @@
   "ip": "127.0.0.1",
   "siteURL": "http://127.0.0.1:8080/",
   "elasticHost": "localhost:9200",
-  "pathToStaticAssets": "http://127.0.0.1:8383/"
+  "pathToStaticAssets": "http://127.0.0.1:8383/",
+  "whitelist": ["http://127.0.0.1:8181", "http://127.0.0.1:8282"]
 }
