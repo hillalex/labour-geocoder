@@ -23,10 +23,11 @@ exports.searchPostcode = function (postcode, cb) {
                 }
             }
         }
-    }).then(function (resp) {
-        cb(null, resp.hits.hits)
-    }).catch(function (error) {
-        cb(error);
+    }, function (err, resp) {
+        if (resp)
+            cb(null, resp.hits.hits);
+        else cb(err);
+
     });
 
 };
@@ -34,9 +35,9 @@ exports.searchPostcode = function (postcode, cb) {
 exports.searchCCGByPostcode = function (postcode, cb) {
 
     // search for details about postcode
-    this.searchPostcode(postcode, function (err, results) {
-        var result = results[0];
+    exports.searchPostcode(postcode, function (err, results) {
 
+        var result = results[0];
         // if matched a postcode, use the lat long to find CCG
         if (result) {
             var doc = result._source;
@@ -45,7 +46,7 @@ exports.searchCCGByPostcode = function (postcode, cb) {
             doc.latitude = Math.round(latlong.latitude * Math.pow(10, 6)) / Math.pow(10, 6);
             doc.longitude = Math.round(latlong.longitude * Math.pow(10, 6)) / Math.pow(10, 6);
 
-            this.searchCCGByLatLng(doc, cb);
+            exports.searchCCGByLatLng(doc, cb);
         }
         else cb("Postcode not found")
     });
@@ -66,7 +67,7 @@ exports.searchCCGByLatLng = function (latLng, cb) {
                     "location": {
                         "shape": {
                             "type": "circle",
-                            "coordinates": [latlng.longitude, latlng.latitude],
+                            "coordinates": [latLng.longitude, latLng.latitude],
                             "radius": "100m"
                         },
                         "relation": "intersects"
@@ -74,12 +75,13 @@ exports.searchCCGByLatLng = function (latLng, cb) {
                 }
             }
         }
-    }).then(function (resp) {
-        cb(null, resp.hits.hits);
+    }, function (err, resp) {
+        if (err)
+            cb(err);
 
-    }).catch(function (error) {
-        cb(error);
-    });
+        else cb(null, resp.hits);
+
+    })
 
 };
 

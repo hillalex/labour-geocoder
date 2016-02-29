@@ -5,7 +5,7 @@ var express = require('express')
 router.get('/:postcode', function (req, res) {
 
     // search for the CCG for this postcode
-    search.search(req.params["postcode"], function (err, results) {
+    search. searchCCGByPostcode(req.params["postcode"], function (err, results) {
 
         if (results)
             res.json(results);
