@@ -11,12 +11,14 @@ Follow instructions here to install elasticsearch: https://www.elastic.co/guide/
 ```$ curl -XPUT 'http://localhost:9200/nhs/'```
 
 - Populate index with postcode data:
-```/path/to/nhs-api/json/postcodes
+``` 
+$ cd path/to/nhs-api/json/postcodes
 $ for i in $(ls); do curl -s -XPOST 'http://localhost:9200/nhs/postcodes/_bulk' --data-binary @$i; done
 ```
 
 - Populate index with CCG data:
-```/path/to/nhs-api/json
+```
+$ cd path/to/nhs-api/json
 $ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_bulk' --data-binary @docs.json
 ```
 
