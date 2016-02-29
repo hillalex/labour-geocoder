@@ -22,3 +22,15 @@ $ cd path/to/nhs-api/json
 $ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_bulk' --data-binary @docs.json
 ```
 
+##To Run
+
+Install dependencies and start app using npm
+```
+$ cd path/to/nhs-api
+$ npm install
+$ npm start
+```
+
+Test it out in your browser
+e.g. http://127.0.0.1:8080/search/m15gh
+
