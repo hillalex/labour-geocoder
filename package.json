@@ -11,7 +11,6 @@
     "nhs"
   ],
   "author": "Alex Hill",
-  "license": "MIT",
   "dependencies": {
     "cors": "^2.7.1",
     "elasticsearch": "^10.1.3",
