@@ -10,16 +10,30 @@ Follow instructions here to install elasticsearch: https://www.elastic.co/guide/
 - Create index:
 ```$ curl -XPUT 'http://localhost:9200/nhs/'```
 
+- Add mappings:
+```
+$ cd path/to/nhs-api/json/mappings
+$ curl -s -XPOST 'http://localhost:9200/nhs/postcode/_mapping' --data-binary @postcode.json
+$ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_mapping' --data-binary @ccg.json
+$ curl -s -XPOST 'http://localhost:9200/nhs/trust/_trust' --data-binary @trust.json
+```
+
 - Populate index with postcode data:
 ``` 
 $ cd path/to/nhs-api/json/postcodes
-$ for i in $(ls); do curl -s -XPOST 'http://localhost:9200/nhs/postcodes/_bulk' --data-binary @$i; done
+$ for i in $(ls); do curl -s -XPOST 'http://localhost:9200/nhs/postcode/_bulk' --data-binary @$i; done
 ```
 
 - Populate index with CCG data:
 ```
 $ cd path/to/nhs-api/json
-$ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_bulk' --data-binary @docs.json
+$ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_bulk' --data-binary @ccgs.json
+```
+
+- Populate index with NHS Trust data:
+```
+$ cd path/to/nhs-api/json
+$ curl -s -XPOST 'http://localhost:9200/nhs/trust/_bulk' --data-binary @trusts.json
 ```
 
 ##To Run
@@ -31,6 +45,7 @@ $ npm install
 $ npm start
 ```
 
-Test it out in your browser
-e.g. http://127.0.0.1:8080/search/m15gh
-
+##Endpoints
+- postcode latitude/longitude/northing/easting details: /search/[POSTCODE]
+- nearest NHS Trust by postcode: /search/[POSTCODE]
+- CCG by postcode: /search/trust/[POSTCODE]
