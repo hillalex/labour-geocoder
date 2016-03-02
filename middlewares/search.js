@@ -78,7 +78,18 @@ exports.searchTrustByPostcode = function (postcode, cb) {
                 query: {
                     filtered: {
                         query: {
-                            match_all: {}
+                            "function_score": {
+                                "functions": [
+                                    {
+                                        "linear": {
+                                            "trustlocation": {
+                                                "origin": [result.latitude, result.longitude],
+                                                "offset": "1km",
+                                                "scale":  "3km"
+                                            }
+                                        }
+                                    }]
+                            }
                         },
                         filter: {
                             geo_distance: {

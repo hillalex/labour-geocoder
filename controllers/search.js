@@ -18,7 +18,7 @@ router.get('/ccg/:postcode', function (req, res) {
 
 router.get('/trust/:postcode', function (req, res) {
 
-    // search for the CCG for this postcode
+    // search for the nearest NHS trust to this postcode
     search.searchTrustByPostcode(req.params["postcode"], function (err, result) {
 
         if (result)
@@ -32,7 +32,7 @@ router.get('/trust/:postcode', function (req, res) {
 
 router.get('/:postcode', function (req, res) {
 
-    // search for the CCG for this postcode
+    // search for this postcode
     search.searchPostcode(req.params["postcode"], function (err, result) {
 
         if (result)
