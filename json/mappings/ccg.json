@@ -1,0 +1,15 @@
+{
+  "ccg": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "CCGcode": {
+        "type": "string"
+      },
+      "ccglocation": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}

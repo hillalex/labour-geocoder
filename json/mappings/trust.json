@@ -1,0 +1,15 @@
+{
+  "trust": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "postcode": {
+        "type": "string"
+      },
+      "trustlocation": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
