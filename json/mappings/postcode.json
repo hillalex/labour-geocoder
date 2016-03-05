@@ -1,7 +1,7 @@
 {
   "postcode": {
     "properties": {
-      "code": {
+      "postcode": {
         "type": "string",
         "index": "not_analyzed"
       },

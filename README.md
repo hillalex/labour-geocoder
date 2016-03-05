@@ -15,7 +15,7 @@ Follow instructions here to install elasticsearch: https://www.elastic.co/guide/
 $ cd path/to/nhs-api/json/mappings
 $ curl -s -XPOST 'http://localhost:9200/nhs/postcode/_mapping' --data-binary @postcode.json
 $ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_mapping' --data-binary @ccg.json
-$ curl -s -XPOST 'http://localhost:9200/nhs/trust/_trust' --data-binary @trust.json
+$ curl -s -XPOST 'http://localhost:9200/nhs/trust/_mapping' --data-binary @trust.json
 ```
 
 - Populate index with postcode data:
