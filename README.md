@@ -47,5 +47,5 @@ $ npm start
 
 ##Endpoints
 - postcode latitude/longitude/northing/easting details: /search/[POSTCODE]
-- nearest NHS Trust by postcode: /search/[POSTCODE]
-- CCG by postcode: /search/trust/[POSTCODE]
+- nearest NHS Trust by postcode: /search/trust/[POSTCODE]
+- CCG by postcode: /search/ccg/[POSTCODE]
