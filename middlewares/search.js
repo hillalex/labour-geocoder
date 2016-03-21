@@ -1,5 +1,5 @@
 var elasticsearch = require('elasticsearch'),
-    postcodeUtils = require('../utils/postcodeutils'),
+    postcodeUtils = require('../utils/postcodeUtils'),
     os = require('ospoint'),
     config = require('../config');
 
