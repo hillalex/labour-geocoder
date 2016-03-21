@@ -102,6 +102,51 @@ exports.searchTrustByPostcode = function (postcode, cb) {
 };
 
 
+exports.searchLaByPostcode = function (postcode, cb) {
+    // search for lat/lng of postcode
+    exports.searchPostcode(postcode, function (err, latLng) {
+
+        if (err)
+            cb(err);
+
+        else
+        // now search for local authority
+            client.search({
+                index: 'nhs',
+                type: 'localauthority',
+                body: {
+                    "query": {
+                        "match_all": {}
+                    },
+                    "filter": {
+                        "geo_shape": {
+                            "lalocation": {
+                                "shape": {
+                                    "type": "point",
+                                    "coordinates": [latLng.longitude, latLng.latitude]
+                                },
+                                "relation": "intersects"
+                            }
+                        }
+                    }
+                }
+            }, function (err, resp) {
+
+                if (err)
+                    cb(err);
+                else {
+                    if (resp.hits.hits[0])
+                    //cb(null, resp.hits.hits.length);
+                        cb(null, resp.hits.hits[0]._source);
+                    else
+                        cb("No local authority found for this postcode")
+                }
+            });
+
+    });
+};
+
+
 exports.searchCCGByLatLng = function (latLng, cb) {
 
     client.search({
@@ -115,9 +160,8 @@ exports.searchCCGByLatLng = function (latLng, cb) {
                 "geo_shape": {
                     "ccglocation": {
                         "shape": {
-                            "type": "circle",
-                            "coordinates": [latLng.latitude, latLng.longitude],
-                            "radius": "100m"
+                            "type": "point",
+                            "coordinates": [latLng.latitude, latLng.longitude]
                         },
                         "relation": "intersects"
                     }

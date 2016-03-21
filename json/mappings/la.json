@@ -1,0 +1,15 @@
+{
+  "localauthority": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "onscode": {
+        "type": "string"
+      },
+      "lalocation": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}

@@ -30,6 +30,19 @@ router.get('/trust/:postcode', function (req, res) {
 
 });
 
+router.get('/localauthority/:postcode', function (req, res) {
+
+    // search for this postcode
+    search.searchLaByPostcode(req.params["postcode"], function (err, result) {
+
+        if (result)
+            res.json(result);
+
+        else res.json(err);
+    });
+
+});
+
 router.get('/:postcode', function (req, res) {
 
     // search for this postcode
@@ -40,7 +53,6 @@ router.get('/:postcode', function (req, res) {
 
         else res.json(err);
     });
-
 
 });
 
