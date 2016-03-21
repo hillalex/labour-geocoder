@@ -76,11 +76,11 @@ exports.searchTrustByPostcode = function (postcode, cb) {
             type: 'trust',
             body: {
                 query: {
-                    filtered: {
-                        filter: {
-                            geo_distance: {
-                                distance: "20km",
-                                trustlocation: [result.latitude, result.longitude]
+                    function_score: {
+                        linear: {
+                           trustlocation: {
+                                scale: "10km",
+                                origin: [result.latitude, result.longitude]
                             }
                         }
                     }
