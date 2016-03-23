@@ -135,6 +135,7 @@ exports.searchLaByPostcode = function (postcode, cb) {
                 if (err)
                     cb(err);
                 else {
+
                     if (resp.hits.hits[0])
                     //cb(null, resp.hits.hits.length);
                         cb(null, resp.hits.hits[0]._source);

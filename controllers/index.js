@@ -1,6 +1,6 @@
 var express = require('express')
     , router = express.Router();
 
-router.use('/CCG', require('./CCG'));
 router.use('/search', require('./search'));
+router.use('/localcuts', require('./localcuts'));
 module.exports = router;

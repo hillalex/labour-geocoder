@@ -4,6 +4,15 @@
       "name": {
         "type": "string"
       },
+      "region": {
+        "type": "string"
+      },
+      "totalcuts": {
+        "type": "float"
+      },
+      "percentagec  uts": {
+        "type": "float"
+      },
       "onscode": {
         "type": "string"
       },
