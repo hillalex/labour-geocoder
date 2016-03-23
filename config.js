@@ -12,5 +12,5 @@ else
     config = process.env;
 
 config.env = env;
-
+config.elasticHost = process.env.SEARCHBOX_SSL_URL || config.elasticHost;
 module.exports = config;
