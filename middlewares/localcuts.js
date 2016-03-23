@@ -39,6 +39,9 @@ exports.leastCutsInRegion = function (region, cb) {
     }, function (err, resp) {
         if (err)
             cb(err);
+        else if (!resp.hits){
+            cb("Error with ElasticSearch host");
+        }
         else {
             if (resp.hits.hits[0])
                 cb(null, resp.hits.hits[0]._source);
@@ -83,6 +86,9 @@ exports.leastPercentageCutsInRegion = function (region, cb) {
     }, function (err, resp) {
         if (err)
             cb(err);
+        else if (!resp.hits){
+            cb("Error with ElasticSearch host");
+        }
         else {
             if (resp.hits.hits[0])
                 cb(null, resp.hits.hits[0]._source);

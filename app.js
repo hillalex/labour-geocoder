@@ -13,8 +13,8 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(require('./controllers'));
 
-var port = config.PORT;
-var ip = config.IP;
+var port = config.PORT || config.port;
+var ip = config.IP || config.ip;
 
 app.listen(port);
 

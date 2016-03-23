@@ -27,20 +27,26 @@ exports.searchPostcode = function (postcode, cb) {
     }, function (err, resp) {
         if (resp) {
 
-            var result = resp.hits.hits[0];
-
-            // if matched a postcode, use the lat long to find CCG
-            if (result) {
-                var doc = result._source;
-                var point = new os(doc.northing, doc.easting);
-                var latlong = point.toWGS84();
-                doc.latitude = Math.round(latlong.latitude * Math.pow(10, 6)) / Math.pow(10, 6);
-                doc.longitude = Math.round(latlong.longitude * Math.pow(10, 6)) / Math.pow(10, 6);
-
-                cb(null, doc)
+            if (!resp.hits){
+                cb("Error with ElasticSearch host");
             }
 
-            else cb("Postcode not found")
+            else {
+                var result = resp.hits.hits[0];
+
+                // if matched a postcode, use the lat long to find CCG
+                if (result) {
+                    var doc = result._source;
+                    var point = new os(doc.northing, doc.easting);
+                    var latlong = point.toWGS84();
+                    doc.latitude = Math.round(latlong.latitude * Math.pow(10, 6)) / Math.pow(10, 6);
+                    doc.longitude = Math.round(latlong.longitude * Math.pow(10, 6)) / Math.pow(10, 6);
+
+                    cb(null, doc)
+                }
+
+                else cb("Postcode not found")
+            }
         }
         else cb(err);
 
@@ -91,7 +97,10 @@ exports.searchTrustByPostcode = function (postcode, cb) {
             if (err)
                 cb(err);
             else {
-                if (resp.hits.hits[0])
+                if (!resp.hits){
+                    cb("Error with ElasticSearch host");
+                }
+                else if (resp.hits.hits[0])
                     cb(null, resp.hits.hits[0]._source);
                 else
                     cb("No trust found within 20km of this postcode")
@@ -134,6 +143,9 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
                 if (err)
                     cb(err);
+                else if (!resp.hits){
+                    cb("Error with ElasticSearch host");
+                }
                 else {
 
                     if (resp.hits.hits[0])
@@ -142,6 +154,7 @@ exports.searchLaByPostcode = function (postcode, cb) {
                     else
                         cb("No local authority found for this postcode")
                 }
+
             });
 
     });
@@ -172,6 +185,9 @@ exports.searchCCGByLatLng = function (latLng, cb) {
     }, function (err, resp) {
         if (err)
             cb(err);
+        else if (!resp.hits){
+            cb("Error with ElasticSearch host");
+        }
         else {
             if (resp.hits.hits[0])
                 cb(null, resp.hits.hits[0]._source);
