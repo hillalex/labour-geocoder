@@ -1,11 +1,14 @@
 {
-  "name": "Lab_NHS",
+  "name": "LabourGeocoder",
   "version": "1.0.0",
-  "description": "REST API",
+  "description": "Geocoding API",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "node_modules/.bin/mocha tests/**/**.js"
+  },
+  "engines": {
+    "node": "4.4.0"
   },
   "keywords": [
     "nhs"

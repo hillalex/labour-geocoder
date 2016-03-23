@@ -15,7 +15,7 @@ app.use(require('./controllers'));
 
 server = require('http').createServer(app);
 
-var port = process.env.OPENSHIFT_NODEJS_PORT || config.port;
-var ip = process.env.OPENSHIFT_NODEJS_IP || config.ip;
+var port = config.port;
+var ip = config.ip;
 
 server.listen(port, ip);
