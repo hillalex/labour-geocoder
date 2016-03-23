@@ -13,4 +13,6 @@ else
 
 config.env = env;
 
+console.log(config.env, config.PORT, config.IP);
+
 module.exports = config;

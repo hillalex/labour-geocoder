@@ -13,11 +13,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(require('./controllers'));
 
-server = require('http').createServer(app);
+var port = config.PORT;
+var ip = config.IP;
 
-var port = config.port || config.PORT;
-var ip = config.ip || config.IP;
-
-server.listen(port, ip);
+app.listen(port);
 
 console.log("app listening on " + ip + ":" + port);
