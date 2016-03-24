@@ -40,13 +40,13 @@ exports.leastCutsInRegion = function (region, cb) {
         if (err)
             cb(err);
         else if (!resp.hits){
-            cb("Error with ElasticSearch host");
+            cb({statusCode: 500, message: "Error with ElasticSearch host"});
         }
         else {
             if (resp.hits.hits[0])
                 cb(null, resp.hits.hits[0]._source);
             else
-                cb("No local authority found for this region")
+                cb({statusCode: 404, message: "No local authority found for this region"})
         }
     })
 
@@ -87,13 +87,13 @@ exports.leastPercentageCutsInRegion = function (region, cb) {
         if (err)
             cb(err);
         else if (!resp.hits){
-            cb("Error with ElasticSearch host");
+            cb({statusCode: 500, message: "Error with ElasticSearch host"});
         }
         else {
             if (resp.hits.hits[0])
                 cb(null, resp.hits.hits[0]._source);
             else
-                cb("No local authority found for this region")
+                cb({statusCode: 404, message: "No local authority found for this region"})
         }
     })
 

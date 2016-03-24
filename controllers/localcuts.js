@@ -8,22 +8,28 @@ router.get('/bestoffabsolute/:region', function (req, res) {
     cuts.leastCutsInRegion(req.params["region"], function (err, result) {
 
         if (result)
-            res.json(result);
+            res.status(200).json(result);
 
-        else res.json(err);
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
     });
 
 });
 
-router.get('/bestoff/:region', function(req, res){
+router.get('/bestoff/:region', function (req, res) {
 
     // search for this postcode
     cuts.leastPercentageCutsInRegion(req.params["region"], function (err, result) {
 
         if (result)
-            res.json(result);
+            res.status(200).json(result);
 
-        else res.json(err);
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
     });
 });
 

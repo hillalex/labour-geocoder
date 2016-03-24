@@ -45,7 +45,7 @@ exports.searchPostcode = function (postcode, cb) {
                     cb(null, doc)
                 }
 
-                else cb("Postcode not found")
+                else cb({statusCode: 404, message: "Postcode not found"})
             }
         }
         else cb(err);
@@ -98,12 +98,12 @@ exports.searchTrustByPostcode = function (postcode, cb) {
                 cb(err);
             else {
                 if (!resp.hits){
-                    cb("Error with ElasticSearch host");
+                    cb({statusCode: 500, message: "Error with ElasticSearch host"});
                 }
                 else if (resp.hits.hits[0])
                     cb(null, resp.hits.hits[0]._source);
                 else
-                    cb("No trust found within 20km of this postcode")
+                    cb({statusCode: 404, message: "No trust found within 20km of this postcode"})
             }
         });
 
@@ -144,7 +144,7 @@ exports.searchLaByPostcode = function (postcode, cb) {
                 if (err)
                     cb(err);
                 else if (!resp.hits){
-                    cb("Error with ElasticSearch host");
+                    cb({statusCode: 500, message: "Error with ElasticSearch host"});
                 }
                 else {
 
@@ -152,7 +152,7 @@ exports.searchLaByPostcode = function (postcode, cb) {
                     //cb(null, resp.hits.hits.length);
                         cb(null, resp.hits.hits[0]._source);
                     else
-                        cb("No local authority found for this postcode")
+                        cb({statusCode: 404, message: "No local authority found for this postcode"})
                 }
 
             });
@@ -186,13 +186,13 @@ exports.searchCCGByLatLng = function (latLng, cb) {
         if (err)
             cb(err);
         else if (!resp.hits){
-            cb("Error with ElasticSearch host");
+            cb({statusCode: 500, message: "Error with ElasticSearch host"});
         }
         else {
             if (resp.hits.hits[0])
                 cb(null, resp.hits.hits[0]._source);
             else
-                cb("No CCG found for this postcode")
+                cb({statusCode: 404, message: "No CCG found for this postcode"})
         }
     })
 
