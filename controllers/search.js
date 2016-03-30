@@ -1,6 +1,6 @@
 var express = require('express')
     , router = express.Router()
-    , search = require('../middlewares/search');
+    , search = require('../middlewares/searchPg');
 
 router.get('/ccg/:postcode', function (req, res) {
 

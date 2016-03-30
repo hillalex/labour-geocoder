@@ -27,7 +27,7 @@ exports.searchPostcode = function (postcode, cb) {
     }, function (err, resp) {
         if (resp) {
 
-            if (!resp.hits){
+            if (!resp.hits) {
                 cb("Error with ElasticSearch host");
             }
 
@@ -59,10 +59,10 @@ exports.searchCCGByPostcode = function (postcode, cb) {
     exports.searchPostcode(postcode, function (err, result) {
 
         if (err)
-        cb(err);
+            cb(err);
 
         else
-        exports.searchCCGByLatLng(result, cb);
+            exports.searchCCGByLatLng(result, cb);
 
     });
 };
@@ -73,39 +73,39 @@ exports.searchTrustByPostcode = function (postcode, cb) {
     exports.searchPostcode(postcode, function (err, result) {
 
         if (err)
-        cb(err);
+            cb(err);
 
         else
         // now search for trusts nearby
-        client.search({
-            index: 'nhs',
-            type: 'trust',
-            body: {
-                query: {
-                    function_score: {
-                        linear: {
-                           trustlocation: {
-                                scale: "10km",
-                                origin: [result.latitude, result.longitude]
+            client.search({
+                index: 'nhs',
+                type: 'trust',
+                body: {
+                    query: {
+                        function_score: {
+                            linear: {
+                                trustlocation: {
+                                    scale: "10km",
+                                    origin: [result.latitude, result.longitude]
+                                }
                             }
                         }
                     }
                 }
-            }
-        }, function (err, resp) {
+            }, function (err, resp) {
 
-            if (err)
-                cb(err);
-            else {
-                if (!resp.hits){
-                    cb({statusCode: 500, message: "Error with ElasticSearch host"});
+                if (err)
+                    cb(err);
+                else {
+                    if (!resp.hits) {
+                        cb({statusCode: 500, message: "Error with ElasticSearch host"});
+                    }
+                    else if (resp.hits.hits[0])
+                        cb(null, resp.hits.hits[0]._source);
+                    else
+                        cb({statusCode: 404, message: "No trust found within 20km of this postcode"})
                 }
-                else if (resp.hits.hits[0])
-                    cb(null, resp.hits.hits[0]._source);
-                else
-                    cb({statusCode: 404, message: "No trust found within 20km of this postcode"})
-            }
-        });
+            });
 
     });
 };
@@ -143,7 +143,7 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
                 if (err)
                     cb(err);
-                else if (!resp.hits){
+                else if (!resp.hits) {
                     cb({statusCode: 500, message: "Error with ElasticSearch host"});
                 }
                 else {
@@ -185,7 +185,7 @@ exports.searchCCGByLatLng = function (latLng, cb) {
     }, function (err, resp) {
         if (err)
             cb(err);
-        else if (!resp.hits){
+        else if (!resp.hits) {
             cb({statusCode: 500, message: "Error with ElasticSearch host"});
         }
         else {
