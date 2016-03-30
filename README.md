@@ -1,8 +1,10 @@
-#How Sick Is Your NHS?
+#Localised data on Tory cuts
 
 Data on CCG codes, names and boundaries from: https://www.england.nhs.uk/resources/ccg-maps/
 
 Data on UK postcodes from the OS: https://www.ordnancesurvey.co.uk/business-and-government/products/code-point-open.html
+
+All other data from the ONS
 
 ##To Create Index
 Follow instructions here to install elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
@@ -49,3 +51,4 @@ $ npm start
 - postcode latitude/longitude/northing/easting details: /search/[POSTCODE]
 - nearest NHS Trust by postcode: /search/trust/[POSTCODE]
 - CCG by postcode: /search/ccg/[POSTCODE]
+- local authority by postcode: /search/localauthority/[POSTCODE]
