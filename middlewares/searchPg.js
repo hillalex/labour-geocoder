@@ -41,13 +41,15 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
         else
         // now search for local authority
-            db.one("SELECT name, onscode, region, totalcuts, percentagecuts, perhouseholdcuts, ST_AsGeoJSON(location)"
+            db.query("SELECT name, onscode, region, totalcuts, percentagecuts, perhouseholdcuts, ST_AsGeoJSON(location)"
                     + " as lalocation from localauthority WHERE ST_contains(location,  ST_GeomFromText('POINT($1 $2)', 4326))",
                 [latLng.longitude, latLng.latitude])
                 .then(function (resp) {
-                    cb(null, resp);
-
-                }).catch(function (err) {
+                    if (resp[0])
+                    cb(null, resp[0]);
+                    else cb("No local authority found for this postcode");
+                })
+                .catch(function (err) {
                 cb(err);
             });
 
@@ -63,11 +65,14 @@ exports.searchCountyByPostcode = function (postcode, cb) {
 
         else
         // now search for local authority
-            db.one("SELECT name, onscode, totalcuts, perhouseholdcuts, ST_AsGeoJSON(location)"
+            db.query("SELECT name, onscode, totalcuts, percentagecuts, perhouseholdcuts, ST_AsGeoJSON(location)"
                     + " as countylocation from county WHERE ST_contains(location,  ST_GeomFromText('POINT($1 $2)', 4326))",
                 [latLng.longitude, latLng.latitude])
                 .then(function (resp) {
-                    cb(null, resp);
+                    if (resp[0])
+                    cb(null, resp[0]);
+
+                    else cb("No county found for this postcode");
 
                 }).catch(function (err) {
                 cb(err);
@@ -80,10 +85,12 @@ exports.searchCountyByPostcode = function (postcode, cb) {
 exports.searchRegionByName = function (name, cb) {
 
     // now search for region
-    db.one("SELECT * from region WHERE name=$1",
+    db.query("SELECT * from region WHERE name=$1",
         name)
         .then(function (resp) {
-            cb(null, resp);
+            if (resp[0])
+            cb(null, resp[0]);
+            else cb("No region found with this name");
 
         }).catch(function (err) {
         cb(err);
