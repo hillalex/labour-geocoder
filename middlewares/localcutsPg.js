@@ -50,3 +50,17 @@ exports.getAuthorityByONSCode = function (code, cb) {
     });
 
 };
+
+exports.getCountyByONSCode = function (code, cb) {
+
+    // now search for local authority
+    db.query("select * from county where onscode=$1", code)
+        .then(function (resp) {
+
+            cb(null, resp[0]);
+
+        }).catch(function (err) {
+        cb(err);
+    });
+
+};

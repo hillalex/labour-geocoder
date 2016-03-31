@@ -41,7 +41,7 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
         else
         // now search for local authority
-            db.one("SELECT name, onscode, region, totalcuts, percentagecuts, ST_AsGeoJSON(location)"
+            db.one("SELECT name, onscode, region, totalcuts, percentagecuts, perhouseholdcuts, ST_AsGeoJSON(location)"
                     + " as lalocation from localauthority WHERE ST_contains(location,  ST_GeomFromText('POINT($1 $2)', 4326))",
                 [latLng.longitude, latLng.latitude])
                 .then(function (resp) {
@@ -53,6 +53,29 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
     });
 };
+
+exports.searchCountyByPostcode = function (postcode, cb) {
+    // search for lat/lng of postcode
+    exports.searchPostcode(postcode, function (err, latLng) {
+
+        if (err)
+            cb(err);
+
+        else
+        // now search for local authority
+            db.one("SELECT name, onscode, totalcuts, perhouseholdcuts, ST_AsGeoJSON(location)"
+                    + " as countylocation from county WHERE ST_contains(location,  ST_GeomFromText('POINT($1 $2)', 4326))",
+                [latLng.longitude, latLng.latitude])
+                .then(function (resp) {
+                    cb(null, resp);
+
+                }).catch(function (err) {
+                cb(err);
+            });
+
+    });
+};
+
 
 exports.searchNearbyLaByPostcode = function (postcode, cb) {
     // search for lat/lng of postcode

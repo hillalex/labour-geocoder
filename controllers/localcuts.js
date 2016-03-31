@@ -65,5 +65,20 @@ router.get('/:onscode', function (req, res) {
     });
 });
 
+router.get('/county/:onscode', function (req, res) {
+
+    // search for this postcode
+    cuts.getCountyByONSCode(req.params["onscode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+});
+
 
 module.exports = router;
