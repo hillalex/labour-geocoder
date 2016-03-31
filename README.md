@@ -6,7 +6,7 @@ Data on UK postcodes from the OS: https://www.ordnancesurvey.co.uk/business-and-
 
 All other data from the ONS
 
-##To Create Index
+##To Create Elasticsearch Index 
 Follow instructions here to install elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
 
 - Create index:
@@ -14,7 +14,7 @@ Follow instructions here to install elasticsearch: https://www.elastic.co/guide/
 
 - Add mappings:
 ```
-$ cd path/to/nhs-api/json/mappings
+$ cd path/to/labour-geocoder/json/mappings
 $ curl -s -XPOST 'http://localhost:9200/nhs/postcode/_mapping' --data-binary @postcode.json
 $ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_mapping' --data-binary @ccg.json
 $ curl -s -XPOST 'http://localhost:9200/nhs/trust/_mapping' --data-binary @trust.json
@@ -22,27 +22,53 @@ $ curl -s -XPOST 'http://localhost:9200/nhs/trust/_mapping' --data-binary @trust
 
 - Populate index with postcode data:
 ``` 
-$ cd path/to/nhs-api/json/postcodes
+$ cd path/to/labour-geocoder/json/postcodes
 $ for i in $(ls); do curl -s -XPOST 'http://localhost:9200/nhs/postcode/_bulk' --data-binary @$i; done
 ```
 
 - Populate index with CCG data:
 ```
-$ cd path/to/nhs-api/json
+$ cd path/to/labour-geocoder/json
 $ curl -s -XPOST 'http://localhost:9200/nhs/ccg/_bulk' --data-binary @ccgs.json
 ```
 
 - Populate index with NHS Trust data:
 ```
-$ cd path/to/nhs-api/json
+$ cd path/to/labour-geocoder/json
 $ curl -s -XPOST 'http://localhost:9200/nhs/trust/_bulk' --data-binary @trusts.json
+```
+
+##To Create Postgres Db
+Follow instructions here to install postgres: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
+
+- Create a database and user (locally we've called our db uk_cuts and are using a user called postgres)
+
+- So you don't get prompted for a password each time, set the variable PGPASSWORD to your user password
+
+- Add tables and stored procedures
+``` 
+$ cd path/to/labour-geocoder/sql
+$ psql -U postgres -d uk_cuts -a -f tables.sql
+$ psql -U postgres -d uk_cuts -a -f sprocs.sql
+```
+
+- Populate table with postcode data:
+``` 
+$ cd path/to/labour-geocoder/sql/postcodes
+$ for i in $(ls); do psql -U postgres -d uk_cuts -a -f $i; done
+```
+
+- Populate table with localauthority data:
+```
+$ cd path/to/labour-geocoder/sql/localauthorities
+$ for i in $(ls); do psql -U postgres -d uk_cuts -a -f $i; done
 ```
 
 ##To Run
 
 Install dependencies and start app using npm
 ```
-$ cd path/to/nhs-api
+$ cd path/to/labour-geocoder
 $ npm install
 $ npm start
 ```
