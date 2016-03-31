@@ -1,7 +1,3 @@
-create database local_cuts;
-
-use database local_cuts;
-
 create table ccg(
       name varchar(255),
       CCGcode varchar(255),
@@ -27,6 +23,3 @@ create table trust(
         name varchar(10),
         location geometry(Point, 4326)
 );
-
-
-
