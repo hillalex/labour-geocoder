@@ -15,8 +15,10 @@ create table localauthority(
 
 create table postcode(
         postcode varchar(10),
+        northing integer,
+        easting integer,
         longitude decimal(18,6),
-        latitude decimal(18,6),
+        latitude decimal(18,6)
 );
 
 create table trust(
