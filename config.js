@@ -5,7 +5,7 @@ var env = process.env['NODE_ENV'] || 'development';
 var json_path = path.join(__dirname, '/config', env + '.json');
 var config = {};
 
-if (env == "development")
+if (fs.existsSync(json_path))
     config = JSON.parse(fs.readFileSync(json_path));
 
 else
