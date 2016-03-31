@@ -1,11 +1,12 @@
-var pgp = require('pg-promise')();
+var config = require("../config"),
+    pgp = require('pg-promise')();
 
 var cn = {
     host: '127.0.0.1', // server name or IP address;
     port: 5432,
-    database: 'uk_cuts',
-    user: 'postgres',
-    password: 'postgres'
+    database: config.dbName,
+    user: config.pgUser,
+    password: config.pgPassword
 };
 
 var db = pgp(cn);
