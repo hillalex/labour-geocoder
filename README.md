@@ -49,6 +49,10 @@ $ npm start
 
 ##Endpoints
 - postcode latitude/longitude/northing/easting details: /search/[POSTCODE]
-- nearest NHS Trust by postcode: /search/trust/[POSTCODE]
+- nearest NHS Trust by postcode, including financial risk rating: /search/trust/[POSTCODE]
 - CCG by postcode: /search/ccg/[POSTCODE]
-- local authority by postcode: /search/localauthority/[POSTCODE]
+- local authority by postcode, including cuts data: /search/localauthority/[POSTCODE]
+- 5 closest local authorities by postcode, including cuts data: /localcuts/nearby/[POSTCODE]
+- data on best off local authority in terms of percentage cuts in a region: /localcuts/bestoff/[REGION]
+- data on best off local authority in absolute terms in a region: /localcuts/bestoffabsolute/[REGION]
+- data on local authority by onscode: /localcuts/[ONSCODE]
