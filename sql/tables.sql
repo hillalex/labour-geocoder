@@ -36,3 +36,11 @@ create table county(
         perhouseholdcuts decimal(18,6),
         location geometry(MultiPolygon, 4326)
 );
+
+create table region(
+        name varchar(255),
+        totalcuts decimal(18,6),
+        percentagecuts decimal(18,6),
+        perhouseholdcuts decimal(18,6),
+        location geometry(MultiPolygon, 4326)
+);

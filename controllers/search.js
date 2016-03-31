@@ -68,6 +68,22 @@ router.get('/county/:postcode', function (req, res) {
 
 });
 
+router.get('/region/:name', function (req, res) {
+
+    // search for this postcode
+    search.searchRegionByName(req.params["name"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+
+});
+
 router.get('/:postcode', function (req, res) {
 
     // search for this postcode

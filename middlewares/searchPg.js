@@ -77,6 +77,21 @@ exports.searchCountyByPostcode = function (postcode, cb) {
 };
 
 
+exports.searchRegionByName = function (name, cb) {
+
+    // now search for region
+    db.one("SELECT * from region WHERE name=$1",
+        name)
+        .then(function (resp) {
+            cb(null, resp);
+
+        }).catch(function (err) {
+        cb(err);
+    });
+
+};
+
+
 exports.searchNearbyLaByPostcode = function (postcode, cb) {
     // search for lat/lng of postcode
     exports.searchPostcode(postcode, function (err, latLng) {
