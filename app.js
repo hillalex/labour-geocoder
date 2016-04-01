@@ -1,6 +1,7 @@
 var express = require('express')
     , app = express()
     , cors = require('cors')
+    , bodyParser = require('body-parser')
     , config = require('./config');
 
 var corsOptions = {
@@ -11,6 +12,11 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 app.use(require('./controllers'));
 
 var port = config.PORT || config.port;

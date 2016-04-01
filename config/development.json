@@ -2,6 +2,7 @@
   "port": 8181,
   "ip": "127.0.0.1",
   "dbName": "uk_cuts",
+  "dbLogging": "labour_logs",
   "pgUser": "postgres",
   "pgPassword": "postgres",
   "siteURL": "http://127.0.0.1:8080/",
