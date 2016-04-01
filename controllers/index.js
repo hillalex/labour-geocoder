@@ -8,7 +8,7 @@ router.use('/localcuts', require('./localcuts'));
 // log a url and an action for analytics
 router.post('/log', function (req, res) {
 
-    logger.logClick(req.body["url"], req.body["action"])
+    logger.logClick(req.body["url"], req.body["action"], req.body["location"])
         .then(function (r) {
             res.status(200).end();
         })

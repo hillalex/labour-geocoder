@@ -10,7 +10,6 @@ var cn = {
 };
 var db = pgp(cn);
 
-exports.logClick = function (url, action) {
-    console.log(url, action)
-    return db.query("insert into clicks (url, action, timestamp) values ($1,$2, CURRENT_TIMESTAMP)", [url, action])
+exports.logClick = function (url, action, location) {
+    return db.query("insert into clicks (url, action, location,timestamp) values ($1,$2, $3,CURRENT_TIMESTAMP)", [url, action, location])
 };
