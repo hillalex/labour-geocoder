@@ -1,6 +1,14 @@
 var express = require('express')
     , router = express.Router()
-    , search = require('../middlewares/searchPg');
+    , config = require('../config')
+    , logger = require('../middlewares/logger')({
+        host: '127.0.0.1',
+        port: '5432',
+        db: config.dbLogging,
+        user: config.pgUser,
+        pw: config.pgPassword
+    }),
+    search = require('../middlewares/searchPg');
 
 router.get('/ccg/:postcode', function (req, res) {
 
@@ -8,7 +16,7 @@ router.get('/ccg/:postcode', function (req, res) {
     search.searchCCGByPostcode(req.params["postcode"], function (err, result) {
 
         if (result)
-                res.status(200).json(result);
+            res.status(200).json(result);
 
         else {
             var status = err.statusCode || 500;
@@ -84,7 +92,7 @@ router.get('/region/:name', function (req, res) {
 
 });
 
-router.get('/:postcode', function (req, res) {
+router.get('/:postcode', logger, function (req, res) {
 
     // search for this postcode
     search.searchPostcode(req.params["postcode"], function (err, result) {
