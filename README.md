@@ -8,8 +8,6 @@ Data on Local Authority cuts from Local Authority 2011-2012 Spending power, Hous
 
 All other data from the ONS
 
-##Option to use either Elasticsearch or PostGres middleware (work in progress)
-
 ##To Create PostGres Db
 Follow instructions here to install PostGres and PostGis: http://www.postgresql.org/download/ http://postgis.net/install/
 
@@ -36,16 +34,7 @@ $ cd path/to/labour-geocoder/sql/localauthorities
 $ for i in $(ls); do psql -U postgres -d uk_cuts -a -f $i; done
 ```
 
-##To Run
-
-Install dependencies and start app using npm
-```
-$ cd path/to/labour-geocoder
-$ npm install
-$ npm start
-```
-
-##To Create Elasticsearch Index 
+##To Create Elasticsearch Index (deprecated)
 Follow instructions here to install elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
 
 - Create index:
@@ -84,15 +73,24 @@ $ cd path/to/labour-geocoder/json/localauthorities
 $ for i in $(ls); do curl -s -XPOST 'http://localhost:9200/nhs/localauthority/_bulk' --data-binary @$i; done
 ```
 
+##To Run
+
+Install dependencies and start app using npm
+```
+$ cd path/to/labour-geocoder
+$ npm install
+$ npm start
+```
+
 ##Endpoints
-- postcode latitude/longitude/northing/easting details: /search/[POSTCODE] (works with either middleware)
-- nearest NHS Trust by postcode, including financial risk rating: /search/trust/[POSTCODE] (only works with Elasticsearch)
-- CCG by postcode: /search/ccg/[POSTCODE]  (only works with Elasticsearch)
-- local authority by postcode, including cuts data: /search/localauthority/[POSTCODE]  (works with either middleware)
-- county by postcode, including cuts data: /search/county/[POSTCODE]  (only works with PostGis)
-- local authority by onscode, including cuts data: /localcuts/[POSTCODE]  (only works with PostGis)
-- county by onscode, including cuts data: /localcuts/county/[POSTCODE]  (only works with PostGis)
-- 5 closest local authorities by postcode, including cuts data: /localcuts/nearby/[POSTCODE]  (only works with PostGis)
-- data on best off local authority in terms of percentage cuts in a region: /localcuts/bestoff/[REGION]  (works with either middleware)
-- data on best off local authority in absolute terms in a region: /localcuts/bestoffabsolute/[REGION]  (works with either middleware)
-- data on local authority by onscode: /localcuts/[ONSCODE]  (only works with PostGis)
+- postcode latitude/longitude/northing/easting details: /search/\[POSTCODE\] \(works with either middleware\)
+- nearest NHS Trust by postcode, including financial risk rating: /search/trust/\[POSTCODE\] \(only works with Elasticsearch\)
+- CCG by postcode: /search/ccg/\[POSTCODE\]  \(only works with Elasticsearch\)
+- local authority by postcode, including cuts data: /search/localauthority/\[POSTCODE\]  \(works with either middleware\)
+- county by postcode, including cuts data: /search/county/\[POSTCODE\]  \(only works with PostGis\)
+- local authority by onscode, including cuts data: /localcuts/\[POSTCODE\]  \(only works with PostGis\)
+- county by onscode, including cuts data: /localcuts/county/\[POSTCODE\]  \(only works with PostGis\)
+- 5 closest local authorities by postcode, including cuts data: /localcuts/nearby/\[POSTCODE\]  \(only works with PostGis\)
+- data on best off local authority in terms of percentage cuts in a region: /localcuts/bestoff/\[REGION\]  \(works with either middleware\)
+- data on best off local authority in absolute terms in a region: /localcuts/bestoffabsolute/\[REGION\]  \(works with either middleware\)
+- data on local authority by onscode: /localcuts/[ONSCODE]  \(only works with PostGis\)
