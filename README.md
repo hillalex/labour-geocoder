@@ -34,6 +34,14 @@ $ cd path/to/labour-geocoder/sql/localauthorities
 $ for i in $(ls); do psql -U postgres -d uk_cuts -a -f $i; done
 ```
 
+- Populate table with county data:
+```
+$ cd path/to/labour-geocoder/sql/counties
+$ for i in $(ls); do psql -U postgres -d uk_cuts -a -f $i; done
+$ cd path/to/labour-geocoder/sql/updates
+$ for i in $(ls); do psql -U postgres -d uk_cuts -a -f $i; done
+```
+
 ##To Create Elasticsearch Index (deprecated)
 Follow instructions here to install elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
 
