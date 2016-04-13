@@ -4,6 +4,8 @@ Data on CCG codes, names and boundaries from: https://www.england.nhs.uk/resourc
 
 Data on UK postcodes from the OS: https://www.ordnancesurvey.co.uk/business-and-government/products/code-point-open.html
 
+Data on Local Authority cuts from Local Authority 2011-2012 Spending power, House of Commons library, April 2016 and Core spending power: local government finance settlement, DCLG, December 2015
+
 All other data from the ONS
 
 ##To Create Postgres Db
@@ -34,8 +36,6 @@ $ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
 
 $ cd path/to/labour-geocoder/sql/areaLookup
 $ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
-
-```
 
 ##To Run
 
