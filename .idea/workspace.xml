@@ -29,8 +29,8 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
               <folding>
-                <marker date="1460566537344" expanded="true" signature="1938:2185" placeholder="{...}" />
-                <marker date="1460566537344" expanded="true" signature="1994:2180" placeholder="{...}" />
+                <marker date="1460566944316" expanded="true" signature="1938:2185" placeholder="{...}" />
+                <marker date="1460566944316" expanded="true" signature="1994:2180" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -69,8 +69,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.612">
-              <caret line="36" column="14" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+            <state vertical-scroll-proportion="1.071">
+              <caret line="63" column="73" selection-start-line="0" selection-start-column="0" selection-end-line="63" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -549,8 +549,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
           <folding>
-            <marker date="1460566537344" expanded="true" signature="1938:2185" placeholder="{...}" />
-            <marker date="1460566537344" expanded="true" signature="1994:2180" placeholder="{...}" />
+            <marker date="1460566944316" expanded="true" signature="1938:2185" placeholder="{...}" />
+            <marker date="1460566944316" expanded="true" signature="1994:2180" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -565,8 +565,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.612">
-          <caret line="36" column="14" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+        <state vertical-scroll-proportion="1.071">
+          <caret line="63" column="73" selection-start-line="0" selection-start-column="0" selection-end-line="63" selection-end-column="73" />
           <folding />
         </state>
       </provider>

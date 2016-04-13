@@ -9,7 +9,7 @@ Data on Local Authority cuts from Local Authority 2011-2012 Spending power, Hous
 All other data from the ONS
 
 ##To Create Postgres Db
-Follow instructions here to install postgres: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
+Follow instructions here to install PostGres and PostGis: http://www.postgresql.org/download/ http://postgis.net/install/
 
 - Create a database and user (locally we've called our db geocoder and are using a user called postgres)
 
