@@ -3,7 +3,7 @@ var express = require('express')
     , stats = require('../middlewares/statistics'),
     entities = require('../middlewares/areas');
 
-router.get('cuts/:onscode', function (req, res) {
+router.get('/cuts/:onscode', function (req, res) {
 
     // search cuts stats for this postcode
     stats.getCutsByONSCode (req.params["onscode"], function (err, result) {

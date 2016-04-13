@@ -9,9 +9,25 @@ exports.getPostcode = function (postcode, cb) {
     postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
 
     // look up in db
-    db.one("select postcode, latitude, longitude from postcode where postcode=$1", postcode)
-        .then(function (doc) {
-            cb(null, doc);
+    db.query("select p.latitude, p.longitude, a.onscode, at.areaTypeName " +
+            "from postcode p" +
+            " inner join areasForPostcodes a on a.postcode = p.postcode" +
+            " inner join areaType at on a.areaTypeId = at.areaTypeId" +
+            " where p.postcode=$1", postcode)
+        .then(function (resp) {
+            if (resp[0]) {
+                var result = {};
+                result.postcode = postcode;
+                result.latitude = resp[0].latitude;
+                result.longitude = resp[0].longitude;
+                result.areas = {};
+                for (var i = 0; i < resp.length; i++) {
+                    result.areas[resp[i]['areatypename']] = resp[i]['onscode'];
+                }
+                cb(null, result);
+            }
+
+            else cb("No postcode found");
         })
         .catch(function (err) {
             cb(err);
@@ -19,70 +35,59 @@ exports.getPostcode = function (postcode, cb) {
 };
 
 exports.getCCGByPostcode = function (postcode, cb, includeLocation) {
-    // search for details about postcode
-    exports.getPostcode(postcode, function (err, latLng) {
 
-        if (err)
+    // normalise postcode so its in the same format as database
+    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
+
+    // now lookup ccg
+    db.query(pgUtils.selectAreaSqlString("ccg", includeLocation),
+        [postcode])
+        .then(function (resp) {
+            if (resp[0])
+                cb(null, resp[0]);
+            else cb("No CCG found for this postcode");
+        })
+        .catch(function (err) {
             cb(err);
+        });
 
-        else
-        // now search for ccg
-            db.query(pgUtils.selectAreaSqlString("ccg", includeLocation),
-                [pgUtils.geom(latLng)])
-                .then(function (resp) {
-                    if (resp[0])
-                        cb(null, resp[0]);
-                    else cb("No CCG found for this postcode");
-                })
-                .catch(function (err) {
-                    cb(err);
-                });
-
-    });
 };
 
 exports.getLaByPostcode = function (postcode, cb, includeLocation) {
-    // search for lat/lng of postcode
-    exports.getPostcode(postcode, function (err, latLng) {
 
-        if (err)
+    // normalise postcode so its in the same format as database
+    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
+
+    // now look up local authority
+    db.query(pgUtils.selectAreaSqlString('localauthority', includeLocation),
+        [postcode])
+        .then(function (resp) {
+            if (resp[0])
+                cb(null, resp[0]);
+            else cb("No local authority found for this postcode");
+        })
+        .catch(function (err) {
             cb(err);
+        });
 
-        // now search for local authority
-        db.query(pgUtils.selectAreaSqlString('localauthority', includeLocation),
-            [pgUtils.geom(latLng)])
-            .then(function (resp) {
-                if (resp[0])
-                    cb(null, resp[0]);
-                else cb("No local authority found for this postcode");
-            })
-            .catch(function (err) {
-                cb(err);
-            });
-
-    });
 };
 
 exports.getCountyByPostcode = function (postcode, cb, includeLocation) {
-    // search for lat/lng of postcode
-    exports.getPostcode(postcode, function (err, latLng) {
 
-        if (err)
-            cb(err);
+    // normalise postcode so its in the same format as database
+    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
 
-        else
-        // now search for local authority
-            db.query(pgUtils.selectAreaSqlString('county', includeLocation),
-                [pgUtils.geom(latLng)])
-                .then(function (resp) {
-                    if (resp[0])
-                        cb(null, resp[0]);
+    // now look up county
+    db.query(pgUtils.selectAreaSqlString('county', includeLocation),
+        [postcode])
+        .then(function (resp) {
+            if (resp[0])
+                cb(null, resp[0]);
 
-                    else cb("No county found for this postcode");
+            else cb("No county found for this postcode");
 
-                }).catch(function (err) {
-                cb(err);
-            });
-
+        }).catch(function (err) {
+        cb(err);
     });
+
 };

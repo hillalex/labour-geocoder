@@ -27,7 +27,7 @@ exports.getTrustByPostcode = function (postcode, cb, includeLocation) {
 
         else
         // now search for local authority
-            db.query(pgUtils.selectEntitySqlString("trust", includeLocation),
+            db.query(pgUtils.geocodeEntitySqlString("trust", includeLocation),
                 [pgUtils.geom(latLng)])
                 .then(function (resp) {
                     if (resp[0])

@@ -2,80 +2,13 @@ var express = require('express')
     , router = express.Router()
     , config = require('../config')
     , db = require('../db')
-    , logger = require('labour-logger')(db),
-    areas = require('../middlewares/areas'),
-    entities = require('../middlewares/entities');
+    , legacy = require('../middlewares/legacy')
+    , logger = require('labour-logger')(db);
 
-router.get('/ccg/:postcode', function (req, res) {
-
-    // search for the CCG for this postcode
-    areas.getCCGByPostcode(req.params["postcode"], function (err, result) {
-
-        if (result)
-            res.status(200).json(result);
-
-        else {
-            var status = err.statusCode || 500;
-            res.status(status).json(err);
-        }
-    }, req.query["location"]);
-
-
-});
-
-router.get('/trust/:postcode', function (req, res) {
-
-    // search for the nearest NHS trust to this postcode
-    entities.getTrustByPostcode(req.params["postcode"], function (err, result) {
-
-        if (result)
-            res.status(200).json(result);
-
-        else {
-            var status = err.statusCode || 500;
-            res.status(status).json(err);
-        }
-    }, req.query["location"]);
-
-
-});
-
-router.get('/localauthority/:postcode', function (req, res) {
+router.get('/search/:postcode', logger, function (req, res) {
 
     // search for this postcode
-    areas.getLaByPostcode(req.params["postcode"], function (err, result) {
-
-        if (result)
-            res.status(200).json(result);
-
-        else {
-            var status = err.statusCode || 500;
-            res.status(status).json(err);
-        }
-    }, req.query["location"]);
-
-});
-
-router.get('/county/:postcode', function (req, res) {
-
-    // search for this postcode
-    areas.getCountyByPostcode(req.params["postcode"], function (err, result) {
-
-        if (result)
-            res.status(200).json(result);
-
-        else {
-            var status = err.statusCode || 500;
-            res.status(status).json(err);
-        }
-    }, req.query["location"]);
-
-});
-
-router.get('/:postcode', logger, function (req, res) {
-
-    // search for this postcode
-    areas.getPostcode(req.params["postcode"], function (err, result) {
+    legacy.searchPostcode(req.params["postcode"], function (err, result) {
 
         if (result)
             res.status(200).json(result);
@@ -86,6 +19,66 @@ router.get('/:postcode', logger, function (req, res) {
         }
     });
 
+});
+
+router.get('/search/localauthority/:postcode', function (req, res) {
+
+    legacy.searchLaByPostcode(req.params["postcode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+
+});
+
+router.get('/search/county/:postcode', function (req, res) {
+
+    legacy.searchCountyByPostcode(req.params["postcode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+
+});
+
+router.get('/localcuts/:onscode', function (req, res) {
+
+    // search for this postcode
+    legacy.getAuthorityByONSCode(req.params["onscode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+});
+
+router.get('/localcuts/county/:onscode', function (req, res) {
+
+    // search for this postcode
+    legacy.getCountyByONSCode(req.params["onscode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
 });
 
 module.exports = router;

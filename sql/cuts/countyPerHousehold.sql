@@ -1,6 +1,7 @@
 DO $$
 DECLARE data integer;
     DECLARE id integer;
+    DECLARE area integer;
 
 BEGIN
 
@@ -8,12 +9,17 @@ SELECT dataTypeId
                from dataType
                where dataTypeName = 'decimal' into data;
 
-insert into statType (statTypeName, dataTypeId)
-values ('totalcuts', data);
+SELECT areaTypeId
+from areaType
+where areaTypeName = 'county' into area;
+
+insert into statType (statTypeName, areaTypeId, dataTypeId)
+values ('perhouseholdcuts', area, data);
 
 SELECT statTypeId
                from statType
-               where statTypeName = 'totalcuts' into id;
+               where statTypeName = 'perhouseholdcuts'
+               and areaTypeId = area into id;
 
 insert into statistics (onscode, statTypeId, value, date)
 values
@@ -44,7 +50,7 @@ values
 ('E10000014',id,'-91.1',DATE '2020-01-01'),
 ('E10000020',id,'-167.2',DATE '2020-01-01'),
 ('E10000003',id,'-53.42',DATE '2020-01-01'),
-('E10000012',id,'-117.01',DATE '2020-01-01')
+('E10000012',id,'-117.01',DATE '2020-01-01');
 
 
 END $$;

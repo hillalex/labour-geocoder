@@ -48,8 +48,12 @@ create table statistics(
 create table statType(
     statTypeId serial primary key,
     statTypeName varchar(255),
-    dataTypeId integer references dataType (dataTypeId)
+    dataTypeId integer references dataType (dataTypeId),
+    entityTypeId integer references entityType (entityTypeId),
+    areaTypeId integer references areaType (areaTypeId)
 );
+
+alter table statType add constraint unique_names unique (statTypeName, areaTypeId, entityTypeId)
 
 create table dataType(
     dataTypeId serial primary key,
