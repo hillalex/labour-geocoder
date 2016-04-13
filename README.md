@@ -1,8 +1,8 @@
-#Localised data on Tory cuts
+#Labour Geocoder
 
 Data on CCG codes, names and boundaries from: https://www.england.nhs.uk/resources/ccg-maps/
 
-Data on UK postcodes from the OS: https://www.ordnancesurvey.co.uk/business-and-government/products/code-point-open.html
+Data on UK postcodes and admin zones from the OS: https://www.ordnancesurvey.co.uk/business-and-government/products/code-point-open.html
 
 Data on Local Authority cuts from Local Authority 2011-2012 Spending power, House of Commons library, April 2016 and Core spending power: local government finance settlement, DCLG, December 2015
 
