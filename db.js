@@ -1,11 +1,12 @@
-var mysql = require('mysql')
-    ,config = require('./config');
+var pgp = require('pg-promise')(),
+    config = require('./config');
 
-exports.pool = mysql.createPool({
-    host: config.dbHost,
-    user: config.dbUser,
-    password: config.dbPw,
+var cn = {
+    host: config.pgHost,
+    port: 5432,
     database: config.dbName,
-    connectionLimit: 10,
-    supportBigNumbers: true
-});
+    user: config.pgUser,
+    password: config.pgPassword
+};
+
+module.exports = pgp(cn);

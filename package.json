@@ -19,6 +19,7 @@
     "cors": "^2.7.1",
     "elasticsearch": "^10.1.3",
     "express": "^4.12.3",
+    "labour-logger": "git+https://github.com/labourdigital/logger.git",
     "mysql": "^2.10.2",
     "ospoint": "^0.2.0",
     "path": "^0.12.7",
@@ -26,7 +27,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5",
+    "mocha": "^2.45",
     "mockrequire": "0.0.5"
   }
 }

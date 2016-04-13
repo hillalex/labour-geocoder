@@ -1,7 +1,8 @@
 {
   "port": 8181,
   "ip": "127.0.0.1",
-  "dbName": "uk_cuts",
+  "pgHost": "127.0.0.1",
+  "dbName": "geocoder",
   "dbLogging": "labour_logs",
   "pgUser": "postgres",
   "pgPassword": "postgres",
