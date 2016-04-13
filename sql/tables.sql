@@ -9,14 +9,14 @@ create table postcode(
 
 create table area(
         ONSCode varchar(255) primary key,
-        areaTypeId integer references areaTypes (areaTypeId),
+        areaTypeId integer references areaType (areaTypeId),
         name varchar(255),
         location geometry
 );
 
 create table entity(
         ONSCode varchar(255) primary key,
-        entityTypeId integer references entityTypes (entityTypeId),
+        entityTypeId integer references entityType (entityTypeId),
         name varchar(255),
         location geometry
 );
@@ -38,11 +38,9 @@ create table areaType(
     areaTypeName varchar(255)
 );
 
-create table statistics(
-        statTypeId integer references statType (statTypeId),
-        ONSCode varchar(255),
-        value varchar(255),
-        date timestamp
+create table dataType(
+    dataTypeId serial primary key,
+    dataTypeName varchar(100)
 );
 
 create table statType(
@@ -53,9 +51,11 @@ create table statType(
     areaTypeId integer references areaType (areaTypeId)
 );
 
-alter table statType add constraint unique_names unique (statTypeName, areaTypeId, entityTypeId)
+alter table statType add constraint unique_names unique (statTypeName, areaTypeId, entityTypeId);
 
-create table dataType(
-    dataTypeId serial primary key,
-    dataTypeName varchar(100)
+create table statistics(
+        statTypeId integer references statType (statTypeId),
+        ONSCode varchar(255),
+        value varchar(255),
+        date timestamp
 );
