@@ -36,6 +36,7 @@ $ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
 
 $ cd path/to/labour-geocoder/sql/areaLookup
 $ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
+```
 
 ##To Run
 
