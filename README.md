@@ -47,11 +47,13 @@ $ npm start
 ```
 
 ##Endpoints
+Append "?location=true" to include GeoJson location with each response:
 - postcode latitude/longitude and all admin areas: /search/[POSTCODE]
-- localauthority by postcode: /search/trust/[POSTCODE]
+- localauthority by postcode: /search/localauthority/[POSTCODE]
 - county by postcode: /search/county/[POSTCODE]
 - CCG by postcode: /search/ccg/[POSTCODE]
 - nearest NHS Trust by postcode: /search/trust/[POSTCODE]
+
 
 ##Legacy Endpoints
 - postcode latitude/longitude/northing/easting details: /v1/search/[POSTCODE]
