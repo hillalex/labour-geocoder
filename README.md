@@ -9,31 +9,31 @@ All other data from the ONS
 ##To Create Postgres Db
 Follow instructions here to install postgres: https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html
 
-- Create a database and user (locally we've called our db uk_cuts and are using a user called postgres)
+- Create a database and user (locally we've called our db geocoder and are using a user called postgres)
 
 - So you don't get prompted for a password each time, set the variable PGPASSWORD to your user password
 
 - Run SQL in this order
 ``` 
 $ cd path/to/labour-geocoder/sql
-$ psql -U postgres -d uk_cuts -a -f tables.sql
-$ psql -U postgres -d uk_cuts -a -f populateTypes.sql
+$ psql -U postgres -d geocoder -a -f tables.sql
+$ psql -U postgres -d geocoder -a -f populateTypes.sql
 
-$ psql -U postgres -d uk_cuts -a -f populate*.sql
+$ psql -U postgres -d geocoder -a -f populate*.sql
 
 $ cd path/to/labour-geocoder/sql/postcodes
-$ for i in $(ls); do psql -U postgres -d uk_cuts -f $i; done
+$ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
 
-$ psql -U postgres -d uk_cuts -a -f createLatLngs.sql
+$ psql -U postgres -d geocoder -a -f createLatLngs.sql
 
 $ cd path/to/labour-geocoder/sql/la
-$ for i in $(ls); do psql -U postgres -d uk_cuts -f $i; done
+$ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
 
 $ cd path/to/labour-geocoder/sql/counties
-$ for i in $(ls); do psql -U postgres -d uk_cuts -f $i; done
+$ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
 
 $ cd path/to/labour-geocoder/sql/areaLookup
-$ for i in $(ls); do psql -U postgres -d uk_cuts -f $i; done
+$ for i in $(ls); do psql -U postgres -d geocoder -f $i; done
 
 ```
 
