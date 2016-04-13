@@ -5,4 +5,4 @@ insert into entityType(entityTypeName)
 values ('trust');
 
 insert into dataType(dataTypeName)
-values ('decimal', 'integer', 'string')
+values ('decimal'), ('integer'), ('string')
