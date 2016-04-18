@@ -9,4 +9,6 @@ var cn = {
     password: config.pgPassword
 };
 
+console.log()
+
 module.exports = pgp(cn);
