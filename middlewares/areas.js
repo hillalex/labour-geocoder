@@ -11,7 +11,8 @@ exports.getPostcode = function (postcode, cb) {
     // look up in db
     db.query("select p.latitude, p.longitude, a.onscode, at.areaTypeName " +
             "from postcode p" +
-            " inner join areasForPostcodes a on a.postcode = p.postcode" +
+            " inner join areasForPostcodes ap on ap.postcode = p.postcode" +
+            " inner join area a on a.onscode = ap.onscode" +
             " inner join areaType at on a.areaTypeId = at.areaTypeId" +
             " where p.postcode=$1", postcode)
         .then(function (resp) {
