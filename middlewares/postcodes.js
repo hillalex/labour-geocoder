@@ -5,7 +5,7 @@ var db = require('../db'),
 
 exports.getPostcodeWithAreas = function (postcode, cb) {
 
-    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    postcode = exports.tryNormalisePostcode(postcode, cb);
     if (postcode)
         db.query("select p.latitude, p.longitude, a.onscode, at.areaTypeName " +
                 "from postcode p" +
@@ -37,7 +37,7 @@ exports.getPostcodeWithAreas = function (postcode, cb) {
 
 exports.getPostcode = function (postcode, cb) {
 
-    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    postcode = exports.tryNormalisePostcode(postcode, cb);
     if (postcode)
         db.query("select postcode, latitude, longitude from postcode where postcode=$1", postcode)
             .then(function (doc) {
