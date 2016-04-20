@@ -6,7 +6,8 @@ var db = require('../db'),
 
 exports.getPostcode = function (postcode, cb) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.query("select p.latitude, p.longitude, a.onscode, at.areaTypeName " +
             "from postcode p" +
             " left join areasForPostcodes ap on ap.postcode = p.postcode" +
@@ -37,7 +38,8 @@ exports.getPostcode = function (postcode, cb) {
 
 exports.getCCGByPostcode = function (postcode, cb, includeLocation) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.query(pgUtils.selectAreaSqlString("ccg", includeLocation),
         [postcode])
         .then(function (resp) {
@@ -53,7 +55,8 @@ exports.getCCGByPostcode = function (postcode, cb, includeLocation) {
 
 exports.getPFAByPostcode = function (postcode, cb, includeLocation) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.query(pgUtils.selectAreaSqlString("pfa", includeLocation),
         [postcode])
         .then(function (resp) {
@@ -69,7 +72,8 @@ exports.getPFAByPostcode = function (postcode, cb, includeLocation) {
 
 exports.getLaByPostcode = function (postcode, cb, includeLocation) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.query(pgUtils.selectAreaSqlString('localauthority', includeLocation),
         [postcode])
         .then(function (resp) {
@@ -85,7 +89,8 @@ exports.getLaByPostcode = function (postcode, cb, includeLocation) {
 
 exports.getCountyByPostcode = function (postcode, cb, includeLocation) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.query(pgUtils.selectAreaSqlString('county', includeLocation),
         [postcode])
         .then(function (resp) {
