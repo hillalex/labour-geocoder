@@ -4,14 +4,12 @@
 
 var config = require('../config'),
     postcodeUtils = require('../utils/postcodeUtils'),
+    postcodes = require('./postcodes'),
     db = require('../db');
 
 exports.searchPostcode = function (postcode, cb) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // look up in db
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.one("select latitude,longitude,postcode from postcode where postcode=$1", postcode)
         .then(function (doc) {
             doc.latitude = parseFloat(doc.latitude);
@@ -25,9 +23,7 @@ exports.searchPostcode = function (postcode, cb) {
 
 exports.searchLaByPostcode = function (postcode, cb) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.query("SELECT a.name, a.onscode," +
             " s.value, st.statTypeName," +
             " ST_AsGeoJSON(a.location)"
@@ -56,10 +52,8 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
 exports.searchCountyByPostcode = function (postcode, cb) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    db.query("SELECT a.name, a.onscode," +
+    if (postcodes.tryNormalisePostcode(postcode, cb))
+        db.query("SELECT a.name, a.onscode," +
             " s.value, st.statTypeName," +
             " ST_AsGeoJSON(a.location)"
             + " as countylocation from area a" +

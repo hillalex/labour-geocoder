@@ -3,6 +3,7 @@ var express = require('express')
     , config = require('../config')
     , db = require('../db')
     , logger = require('labour-logger')(db),
+    postcodes = require("../middlewares/postcodes"),
     areas = require('../middlewares/areas'),
     entities = require('../middlewares/entities');
 
@@ -75,7 +76,7 @@ router.get('/county/:postcode', function (req, res) {
 router.get('/:postcode', logger, function (req, res) {
 
     // search for this postcode
-    areas.getPostcode(req.params["postcode"], function (err, result) {
+    postcodes.getPostcodeWithAreas(req.params["postcode"], function (err, result) {
 
         if (result)
             res.status(200).json(result);

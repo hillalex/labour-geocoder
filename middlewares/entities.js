@@ -1,26 +1,12 @@
 var db = require('../db'),
     config = require('../config'),
+    postcodes = require("./postcodes"),
     postcodeUtils = require('../utils/postcodeUtils'),
     pgUtils = require('../utils/pgUtils');
 
-exports.getPostcode = function (postcode, cb) {
-
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // look up in db
-    db.one("select postcode, latitude, longitude from postcode where postcode=$1", postcode)
-        .then(function (doc) {
-            cb(null, doc);
-        })
-        .catch(function (err) {
-            cb(err);
-        });
-};
-
 exports.getTrustByPostcode = function (postcode, cb, includeLocation) {
     // search for lat/lng of postcode
-    exports.getPostcode(postcode, function (err, latLng) {
+    postcodes.getPostcode(postcode, function (err, latLng) {
 
         if (err)
             cb(err);

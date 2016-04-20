@@ -1,14 +1,12 @@
 var db = require('../db'),
     config = require('../config'),
+    postcodes = require("./postcodes"),
     postcodeUtils = require('../utils/postcodeUtils'),
     pgUtils = require('../utils/pgUtils');
 
 exports.getPostcode = function (postcode, cb) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // look up in db
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.query("select p.latitude, p.longitude, a.onscode, at.areaTypeName " +
             "from postcode p" +
             " left join areasForPostcodes ap on ap.postcode = p.postcode" +
@@ -25,7 +23,7 @@ exports.getPostcode = function (postcode, cb) {
                 result.areas = {};
                 for (var i = 0; i < resp.length; i++) {
                     if (resp[i]['areatypename'] != null)
-                    result.areas[resp[i]['areatypename']] = resp[i]['onscode'];
+                        result.areas[resp[i]['areatypename']] = resp[i]['onscode'];
                 }
                 cb(null, result);
             }
@@ -39,10 +37,7 @@ exports.getPostcode = function (postcode, cb) {
 
 exports.getCCGByPostcode = function (postcode, cb, includeLocation) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // now lookup ccg
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.query(pgUtils.selectAreaSqlString("ccg", includeLocation),
         [postcode])
         .then(function (resp) {
@@ -58,10 +53,7 @@ exports.getCCGByPostcode = function (postcode, cb, includeLocation) {
 
 exports.getPFAByPostcode = function (postcode, cb, includeLocation) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // now lookup ccg
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.query(pgUtils.selectAreaSqlString("pfa", includeLocation),
         [postcode])
         .then(function (resp) {
@@ -77,10 +69,7 @@ exports.getPFAByPostcode = function (postcode, cb, includeLocation) {
 
 exports.getLaByPostcode = function (postcode, cb, includeLocation) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // now look up local authority
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.query(pgUtils.selectAreaSqlString('localauthority', includeLocation),
         [postcode])
         .then(function (resp) {
@@ -96,10 +85,7 @@ exports.getLaByPostcode = function (postcode, cb, includeLocation) {
 
 exports.getCountyByPostcode = function (postcode, cb, includeLocation) {
 
-    // normalise postcode so its in the same format as database
-    postcode = postcodeUtils.normalizePostcode(postcode).substring(1, 8);
-
-    // now look up county
+    if (postcodes.tryNormalisePostcode(postcode, cb))
     db.query(pgUtils.selectAreaSqlString('county', includeLocation),
         [postcode])
         .then(function (resp) {
