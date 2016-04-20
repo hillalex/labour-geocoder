@@ -9,7 +9,8 @@ var config = require('../config'),
 
 exports.searchPostcode = function (postcode, cb) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.one("select latitude,longitude,postcode from postcode where postcode=$1", postcode)
         .then(function (doc) {
             doc.latitude = parseFloat(doc.latitude);
@@ -23,7 +24,8 @@ exports.searchPostcode = function (postcode, cb) {
 
 exports.searchLaByPostcode = function (postcode, cb) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
     db.query("SELECT a.name, a.onscode," +
             " s.value, st.statTypeName," +
             " ST_AsGeoJSON(a.location)"
@@ -52,7 +54,8 @@ exports.searchLaByPostcode = function (postcode, cb) {
 
 exports.searchCountyByPostcode = function (postcode, cb) {
 
-    if (postcodes.tryNormalisePostcode(postcode, cb))
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
         db.query("SELECT a.name, a.onscode," +
             " s.value, st.statTypeName," +
             " ST_AsGeoJSON(a.location)"
