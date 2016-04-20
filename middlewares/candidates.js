@@ -4,7 +4,7 @@ var db = require('../db'),
 exports.getCandidate = function (onscode, year, cb) {
 
     // look up in db
-    db.query("select * from candidate where area=$1 " +
+    db.query("select name, area from candidate where area=$1 " +
         " and date_part('year',date)=$2", [onscode, year])
         .then(function (doc) {
             cb(null, doc);
