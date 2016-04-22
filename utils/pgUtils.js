@@ -61,3 +61,7 @@ exports.geocodeEntitySqlString = function(typeName, includeLocation){
 
     return sql;
 };
+
+exports.normaliseONSCode = function(x){
+    return x.trim().toUpperCase();
+};
