@@ -73,7 +73,7 @@ router.get('/county/:postcode', function (req, res) {
 
 });
 
-router.get('/pfa/:postcode', function (req, res) {
+router.get('/pfa/:postcode', logger,function (req, res) {
 
     // search for this postcode
     areas.getPFAByPostcode(req.params["postcode"], function (err, result) {

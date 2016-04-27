@@ -13,7 +13,7 @@
   "keywords": [
     "nhs"
   ],
-  "author": "Alex Hill",
+  "author": "Alex Hill: alex.hill@gmail.com",
   "dependencies": {
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
