@@ -8,5 +8,7 @@
   "pgPassword": "postgres",
   "siteURL": "http://127.0.0.1:8080/",
   "elasticHost": "localhost:9200",
-  "whitelist": ["http://127.0.0.1:8083", "http://127.0.0.1:8080", "http://www.labour.org.uk", "http://localhost"]
+  "whitelist": ["http://127.0.0.1:8083",
+    "http://127.0.0.1:8080",
+    "http://www.labour.org.uk", "http://localhost"]
 }

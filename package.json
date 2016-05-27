@@ -21,9 +21,12 @@
     "express": "^4.12.3",
     "labour-logger": "git+https://github.com/labourdigital/logger.git",
     "mysql": "^2.10.2",
+    "node-libcurl": "^1.0.0",
     "ospoint": "^0.2.0",
     "path": "^0.12.7",
-    "pg-promise": "^3.4.1"
+    "pg-promise": "^3.4.1",
+    "request-promise": "^3.0.0",
+    "requestify": "^0.1.17"
   },
   "devDependencies": {
     "chai": "^3.5.0",
