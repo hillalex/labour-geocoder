@@ -25,7 +25,7 @@ exports.selectAreaSqlString = function (typeName, includeLocation) {
     var sql = "SELECT a.name, a.onscode";
 
     if (includeLocation)
-    sql += ",ST_AsGeoJSON(a.location) as location";
+    sql += ", ST_AsGeoJSON(a.location) as location";
 
     sql+= " from areasForPostcodes ap join area a on ap.onscode = a.onscode" +
         " where a.areaTypeId = " +
@@ -40,7 +40,7 @@ exports.geocodeAreaSqlString = function (typeName, includeLocation) {
     var sql = "SELECT name, onscode";
 
     if (includeLocation)
-        sql += ",ST_AsGeoJSON(location) as location";
+        sql += ", ST_AsGeoJSON(location) as location";
 
     sql+= " from area where areaTypeId = " +
         exports.areaTypeId(typeName)
@@ -53,7 +53,7 @@ exports.geocodeEntitySqlString = function(typeName, includeLocation){
     var sql= "SELECT name, onscode";
 
     if (includeLocation)
-        sql+=",ST_AsGeoJSON(location) as location";
+        sql+=", ST_AsGeoJSON(location) as location";
 
     sql+= " from entity where entityTypeId = " +
         exports.entityTypeId(typeName)
