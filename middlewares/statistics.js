@@ -65,3 +65,20 @@ exports.getCutsByONSCode = function (code, cb) {
         });
 
 };
+
+exports.getByONSCodeAndStatTypeName = function (code, name, cb) {
+
+    var onscode = pgUtils.normaliseONSCode(code);
+    db.query("SELECT s.value, st.statTypeName from statistics s" +
+        " join statType st on s.statTypeId = st.statTypeId" +
+        " where s.onscode=$1" +
+        " and st.statTypeName=$2",
+        [onscode, name])
+        .then(function (resp) {
+            cb(null, resp);
+        })
+        .catch(function (err) {
+            cb(err);
+        });
+
+};

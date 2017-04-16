@@ -6,7 +6,22 @@ var express = require('express')
 router.get('/cuts/:onscode', function (req, res) {
 
     // search cuts stats for this postcode
-    stats.getCutsByONSCode (req.params["onscode"], function (err, result) {
+    stats.getCutsByONSCode(req.params["onscode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+});
+
+router.get('/cuts/:onscode/:type', function (req, res) {
+
+    // search cuts stats for this postcode
+    stats.getByONSCodeAndStatTypeName(req.params["onscode"], req.params["type"], function (err, result) {
 
         if (result)
             res.status(200).json(result);
