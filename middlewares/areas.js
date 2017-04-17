@@ -94,8 +94,8 @@ exports.getNearbyLocalAuthoritiesByPostcode = function (postcode, cb) {
         db.query(pgUtils.geocodeNearbyAreasSqlString('localauthority'),
             [postcode])
             .then(function (resp) {
-                if (resp[0])
-                    cb(null, resp[0]);
+                if (resp.length > 0)
+                    cb(null, resp);
                 else cb("No local authority found for this postcode");
             })
             .catch(function (err) {
