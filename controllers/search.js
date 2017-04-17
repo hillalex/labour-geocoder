@@ -58,6 +58,23 @@ router.get('/localauthority/:postcode', function (req, res) {
 
 });
 
+
+router.get('/localauthorities/:postcode', function (req, res) {
+
+    // search for this postcode
+    areas.getNearbyLocalAuthoritiesByPostcode(req.params["postcode"], function (err, result) {
+
+        if (result)
+            res.status(200).json(result);
+
+        else {
+            var status = err.statusCode || 500;
+            res.status(status).json(err);
+        }
+    });
+
+});
+
 router.get('/county/:postcode', function (req, res) {
 
     // search for this postcode

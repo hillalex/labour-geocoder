@@ -87,6 +87,23 @@ exports.getLaByPostcode = function (postcode, cb, includeLocation) {
 
 };
 
+exports.getNearbyLocalAuthoritiesByPostcode = function (postcode, cb) {
+
+    postcode = postcodes.tryNormalisePostcode(postcode, cb);
+    if (postcode)
+        db.query(pgUtils.geocodeNearbyAreasSqlString('localauthority'),
+            [postcode])
+            .then(function (resp) {
+                if (resp[0])
+                    cb(null, resp[0]);
+                else cb("No local authority found for this postcode");
+            })
+            .catch(function (err) {
+                cb(err);
+            });
+
+};
+
 exports.getCountyByPostcode = function (postcode, cb, includeLocation) {
 
     postcode = postcodes.tryNormalisePostcode(postcode, cb);
