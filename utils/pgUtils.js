@@ -49,7 +49,7 @@ exports.geocodeAreaSqlString = function (typeName, includeLocation) {
     return sql;
 };
 
-exports.geocodeNearbyAreasSqlString = function (typename) {
+exports.geocodeNearbyAreasSqlString = function (typeName) {
 
     return "SELECT name, onscodefrom area where areaTypeId = " +
         exports.areaTypeId(typeName)
