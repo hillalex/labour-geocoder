@@ -51,7 +51,7 @@ exports.geocodeAreaSqlString = function (typeName, includeLocation) {
 
 exports.geocodeNearbyAreasSqlString = function (typeName) {
 
-    return "SELECT name, onscodefrom area where areaTypeId = " +
+    return "SELECT name, onscode from area where areaTypeId = " +
         exports.areaTypeId(typeName)
         + " ORDER BY ST_Distance(location, (SELECT location from postcode where postcode = $1)) LIMIT 5";
 };
